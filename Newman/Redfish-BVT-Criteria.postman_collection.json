@@ -1,0 +1,1658 @@
+{
+	"info": {
+		"_postman_id": "d1f1c8f0-664b-4186-a4c3-d3332329f8be",
+		"name": "Redfish-BVT-Criteria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BVT-2.Access Redfish Service Root",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"id": "eb838e24-46df-441a-960d-45a319fc21eb"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-2.Access Redfish Oem Uri",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b04c0114-2d3d-4f84-888b-3114208c7550",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/configurations",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-3.1.Access the deeper resource /redfish/v1/Systems/Self without Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "538f1eaf-d2f2-4003-a410-9e86a151fa07",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"/redfish/v1/Systems/Self\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-5.Check property 'BootSourceOverrideEnabled'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59127c14-e37d-4844-a14b-ebd8af9b9095",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"BootSourceOverrideEnabled\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-13.Check Host Interfaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1d658ea-5e44-4a36-a98f-8cc4cda7a414",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"/redfish/v1/Managers/Self/HostInterfaces/Self\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/HostInterfaces",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"HostInterfaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-4.Verify init-agent data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "490b03f2-70e4-472d-994c-ee5bb57babaf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.environment.set(\"variable_key\", \"variable_value\");    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"FirmwareVersion\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self"
+					]
+				},
+				"description": "Check property 'FirmwareVersion'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-6.5.Check Inventory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d60eeb0-b823-479a-9c20-026ed194e220",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.globals.unset(\"variable_key\");    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"TotalSystemMemoryGiB\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self"
+					]
+				},
+				"description": "Check property 'TotalSystemMemoryGiB'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-7.Check LogService - MaxNumberOfRecords",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24d8ce4a-dd95-4a37-948a-74723e475c18",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"MaxNumberOfRecords\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/LogServices/SEL",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"LogServices",
+						"SEL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-8.Check EthernetInterface eth0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bca85a6-5eeb-4403-a462-3c020ff2725e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.HostName).not.to.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/EthernetInterfaces/eth0",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"EthernetInterfaces",
+						"eth0"
+					]
+				},
+				"description": "Check property 'HostName'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-9.Check Serial Interface",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7690a6c-e2bd-44e2-a19a-16148cf06491",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"DataBits\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/SerialInterfaces/IPMI-SOL",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"SerialInterfaces",
+						"IPMI-SOL"
+					]
+				},
+				"description": "Check property BitRate''"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-10.Check Network Protocol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55eaac38-cd0b-4539-b662-f3e41bae0eaf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"IPMI Port\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.IPMI.Port).to.eql(623);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/NetworkProtocol",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"NetworkProtocol"
+					]
+				},
+				"description": "Check SSH port"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-11.2.Check SEL entry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01847ae2-4b3e-4c40-ac13-12bc9aa00980",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Managers/Self/LogServices/SEL/Entries",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Managers",
+						"Self",
+						"LogServices",
+						"SEL",
+						"Entries"
+					]
+				},
+				"description": "Check SEL entry 'Id', 'EntryCode', 'EntryType'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-12.1.Check Action - Clear All BIOS Logs-Entries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3629f0b6-b7e2-47a5-a63a-f72313164b31",
+						"exec": [
+							"tests[\"Status code is 202 | Actual: \" + responseCode.code] = responseCode.code === 202;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ClearType\": \"ClearAll\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/LogServices/BIOS/Actions/LogService.ClearLog",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"LogServices",
+						"BIOS",
+						"Actions",
+						"LogService.ClearLog"
+					]
+				},
+				"description": "Clear all SEL logs when service is enabled."
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-12.1.1.Sleep",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "385bca5a-2776-4441-9fea-e4b2316648f2",
+						"exec": [
+							"tests[\"Status code is 202 | Actual: \" + responseCode.code] = responseCode.code === 202;",
+							"setTimeout(function(){}, 10000)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ClearType\": \"ClearAll\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/LogServices/BIOS/Actions/LogService.ClearLog",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"LogServices",
+						"BIOS",
+						"Actions",
+						"LogService.ClearLog"
+					]
+				},
+				"description": "Clear all SEL logs when service is enabled."
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-12.2.Check BIOS entry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9db7118-ea14-4921-aa3a-bcc8bf2b14dd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Members Count equals 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"Members@odata.count\"]).to.eql(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/LogServices/BIOS/Entries",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"LogServices",
+						"BIOS",
+						"Entries"
+					]
+				},
+				"description": "Check SEL entry 'Id', 'EntryCode', 'EntryType'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-14.Check AMIOem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f72649e-fa34-4706-918b-d82c38b15b5f",
+						"exec": [
+							"tests[\"Status code is 204 | Actual: \" + responseCode.code] = responseCode.code === 200;",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/SecureBoot",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"SecureBoot"
+					]
+				},
+				"description": "Check property 'AmiBios.ChangeState'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-15 Query Parameters SELECT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbfad257-a4e9-4bb5-a55b-eda6c2e3a018",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/AccountService/Roles?$select=Name,Members@odata.count",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"AccountService",
+						"Roles"
+					],
+					"query": [
+						{
+							"key": "$select",
+							"value": "Name,Members@odata.count"
+						}
+					]
+				},
+				"description": "Check property 'TotalSystemMemoryGiB'"
+			},
+			"response": []
+		},
+		{
+			"name": "BVT-15 Query Parameters EXPAND",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ccd8da7-8138-43f4-8329-e1a0b2227435",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"TotalSystemMemoryGiB\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems?$expand=*",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems"
+					],
+					"query": [
+						{
+							"key": "$expand",
+							"value": "*"
+						}
+					]
+				},
+				"description": "Check property 'TotalSystemMemoryGiB'"
+			},
+			"response": []
+		},
+		{
+			"name": "ActionInfo Anno",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe00e5e7-303c-4d4f-9ed5-00891b9f6a72",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI="
+					}
+				],
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/ResetActionInfo",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"ResetActionInfo"
+					]
+				},
+				"description": "Check property 'TotalSystemMemoryGiB'"
+			},
+			"response": []
+		},
+		{
+			"name": "System Self UEFI PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5014bfdc-8633-4dcb-b955-94dea9312c93",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "Basic QWRtaW5pc3RyYXRvcjpzdXBlcnVzZXI=",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "0000",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Boot\" : {\"BootSourceOverrideMode\":\"UEFI\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_protocol}}://{{ip}}/redfish/v1/Systems/Self/SD",
+					"protocol": "{{http_protocol}}",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"Systems",
+						"Self",
+						"SD"
+					]
+				},
+				"description": "Check property 'TotalSystemMemoryGiB'"
+			},
+			"response": []
+		},
+		{
+			"name": "428/412 test Failure",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6be58908-dbad-430a-98b9-e5f62ec6e1c1",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "If-Match",
+						"value": "W/\"1543994853\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ServiceEnabled\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/redfish/v1/SessionService",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"SessionService"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "428/412 test Failure 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f757757-7453-4611-a2c9-1984e04a564b",
+						"exec": [
+							"pm.test(\"Status code is 428\", function () {",
+							"    pm.response.to.have.status(428);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ServiceEnabled\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/redfish/v1/SessionService",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"SessionService"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "428/412 test 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85a48bc0-bbc7-40d5-a49a-9c6d887da519",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "0000",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"ServiceEnabled\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://{{ip}}/redfish/v1/SessionService",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"SessionService"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "$metadata Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9eb6f6a0-7a8f-4b4d-ba46-da496ca8c6ed",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Memory.v1_5_0\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "superuser1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Administrator",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{ip}}/redfish/v1/$metadata",
+					"protocol": "https",
+					"host": [
+						"{{ip}}"
+					],
+					"path": [
+						"redfish",
+						"v1",
+						"$metadata"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
